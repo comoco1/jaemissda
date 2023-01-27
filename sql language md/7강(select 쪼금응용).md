@@ -21,7 +21,8 @@
  -> 출력 시 행 이름이 그대로 출력 -> 보기좋게 앨리어스 부여
    *  ``` select mem_id , sum(amount) as "총 구매 횟수" from buy group by mem_id; ``` <br>
    ![22222222222222222](https://user-images.githubusercontent.com/113004818/215028717-b0168bd1-e65a-454e-ae10-c860934977c1.PNG)
-   
-   
+ 
+ 
+ 
 
 
