@@ -6,5 +6,5 @@
  * sql 언어 <혼자 공부하는 sql>
    * [정리본](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20md)
    * [sql 소스코드](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20study)
-   
-  
+ 
+## 파이썬
