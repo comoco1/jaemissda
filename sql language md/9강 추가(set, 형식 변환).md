@@ -41,23 +41,24 @@ execute idol using @count; ```
 ![555555555555555](https://user-images.githubusercontent.com/113004818/215254853-41900630-3432-41f7-b67a-07e2b8ffbf83.PNG)
 <br> 
 실행시 소숫점 까지 표기 (실수형)
- 	* cast( 컬럼명 as 변경 타입) 을 사용하면 데이터 형식 변환이 가능
- 	ex) ``` select cast(avg(price) as signed) as "평균 가격" from buyl -- cast(~~ as signed) - 부호가 있는 정수형으로 변환하라 ```
- 	<br>
-	![6666666666666666](https://user-images.githubusercontent.com/113004818/215255004-90f4816f-91dc-4795-9219-d325d92640c4.PNG)
+ * cast( 컬럼명 as 변경 타입) 을 사용하면 데이터 형식 변환이 가능
+ ex) ``` select cast(avg(price) as signed) as "평균 가격" from buyl -- cast(~~ as signed) - 부호가 있는 정수형으로 변환하라 ```
+ <br>![6666666666666666](https://user-images.githubusercontent.com/113004818/215255004-90f4816f-91dc-4795-9219-d325d92640c4.PNG)
+ 
+ convert 함수를 이용해 위와 똑같이 가능
+ ex) ``` select convert(avg(price) signed) as "평균 가격" from buy; ``` 
+ 
+ ``` select cast('2022/1/19' as date) as 날짜; ``` -> 숫자뿐만 아니라 다른 데이터 형식도 변환 가능
 	
-	
+<br>
+ 
+ ``` select num , concat(cast(price as char) , 'X' , cast(amount as char) , '=') as "가격*수량", price*amount as "수량" from buy; ```
+![77777777777777777](https://user-images.githubusercontent.com/113004818/215255588-0644099e-3881-452e-9e4c-2ce1f4c41672.PNG)
+
+concat을 사용해 결합하서 사용가능
 
 
 
-	
--- 데이터 형식 변환 
-
-select convert(avg(price) , signed) as "평균 가격" from buy; -- 위랑 같음
-select cast('2022/1/19' as date) as '날짜';
-select num, concat(cast(price as char), 'X' , cast(amount as char), '=')  -- concat => 결합
-	as "가격*수량", price*amount as '수량' from buy
-    
  -- 암시적 변환
  select '100' + '200'; -- sql에서 암시적으로 숫자 처리를 해 100+200인 300을 출력
  select concat('100','200'); -- 문자로 처리
