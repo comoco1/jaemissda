@@ -27,16 +27,16 @@
 
 
 #### 3. 대용량 데이터
-	* text의 대용량 데이터는 longtext(1~약 42억) / blob형식의 대용량 데이터는 longblob(1~약 42억)
-	* blob -> 글자가 아닌 영상이나 사진 데이터
+* text의 대용량 데이터는 longtext(1~약 42억) / blob형식의 대용량 데이터는 longblob(1~약 42억)
+* blob -> 글자가 아닌 영상이나 사진 데이터
+
+#### 4. 날짜형 자료
+* date(yyyy-mm-dd) 날짜를 표시 / time(hh-mm-ss) 시간을 표시 / datetime(yyyy-mm-dd hh-mm-ss) 날짜와 시간 둘다 표시
 
 
--- 대용량 데이터 => longtext(겁나 긴 글자) / longblob(겁나 긴 파일)
+### 데이터 형식 활용
 
--- 날짜형 => date / time / datetime
--- date는 날짜만(yyyy-mm-dd) / time는 시간만(hh-mm-ss) / datetime(둘다 표시)
-
-create table a1 (
+``` create table a1 (
 	tinyint_col tinyint unsigned not null primary key, -- unsigned (+- 범위를 0부터 시작)
     smallint_col smallint,
     int_col int not null,
@@ -44,7 +44,9 @@ create table a1 (
     char_col char(243),
     varchar_col varchar(16222),
     longtext_col longtext,
-    longblob_col longblob);
+    longblob_col longblob); ```
+    
+    
 
 insert into a1 values(127,32000,211234143,12312412555);
 select * from a1;
