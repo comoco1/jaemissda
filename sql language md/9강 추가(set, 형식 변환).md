@@ -1,12 +1,29 @@
 > 책 '혼자 공부하는 sql'을 참고하였습니다.
 
-## sql 데이터 형식
+## set 사용자 변수 / 형식 변환
 
+#### 1. 사용자 변수 set
+* set @변수이름 = 대입값; <br>
+ex) ``` set @myvars1 = 5; ```
+* set 사용자 변수는 db에 영구저장되지 않음.
 
-set @myvar1 =5;  -- set은 영구저장이 아니다. db에 영구저장되지 않음 워크벤치를 닫았다 열면 없어짐
-set @myvar2 =4.25; -- @myvar는 내가 지어준 그냥 변수이름
-select @myvar1 + @myvar2;
+	사용자 변수를 사용해 사칙연산도 가능 <br>
+	ex) ''' set @myvars1 = 5; 
+		set @myvars2 = 4.25; 
+		select @myvars1 + @myvars2; '''
+	<br>
+	![3333333333333333](https://user-images.githubusercontent.com/113004818/215254168-15197043-a219-4031-b108-af56716b0cfc.PNG)
 
+	set을 활용해 조건식에 조건을 부여가능
+	``` set @txt = '가수 이름 ->';
+	set @height = 166;
+	select @txt as 이름 , mem_name as 키 from memeber where height > @height; ``` 
+	<br>
+	
+	![1111111111111111](https://user-images.githubusercontent.com/113004818/215254435-9563785a-2947-48c8-9669-3e3749459d0f.PNG)
+
+	
+		
 set @txt = '가수 이름 ->';
 set @height =166;
 select @txt as 이름 , mem_name as 키 from member where height >@height; -- set으로 활용가능
