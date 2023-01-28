@@ -56,7 +56,7 @@ execute idol using @count; ```
 select convert(avg(price) , signed) as "평균 가격" from buy; -- 위랑 같음
 select cast('2022/1/19' as date) as '날짜';
 select num, concat(cast(price as char), 'X' , cast(amount as char), '=')  -- concat => 결합
-	as "가격*수량", price*amount as '수량' from buy;
+	as "가격*수량", price*amount as '수량' from buy
     
  -- 암시적 변환
  select '100' + '200'; -- sql에서 암시적으로 숫자 처리를 해 100+200인 300을 출력
