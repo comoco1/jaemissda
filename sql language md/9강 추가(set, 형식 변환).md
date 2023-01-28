@@ -45,14 +45,14 @@ execute idol using @count; ```
  	ex) ``` select cast(avg(price) as signed) as "평균 가격" from buyl -- cast(~~ as signed) - 부호가 있는 정수형으로 변환하라 ```
  	<br>
 	![6666666666666666](https://user-images.githubusercontent.com/113004818/215255004-90f4816f-91dc-4795-9219-d325d92640c4.PNG)
-
+	
+	
 
 
 
 	
 -- 데이터 형식 변환 
-select avg(price) as "평균 가격" from buy; -- 소숫점 자리 나는 필요없다! 밑에거로 하면댐
-select cast(avg(price) as signed) as "평균 가격" from buy; -- cast(~~ as signed) 부호가 있는 정수형으로 변환하라
+
 select convert(avg(price) , signed) as "평균 가격" from buy; -- 위랑 같음
 select cast('2022/1/19' as date) as '날짜';
 select num, concat(cast(price as char), 'X' , cast(amount as char), '=')  -- concat => 결합
