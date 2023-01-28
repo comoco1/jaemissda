@@ -46,10 +46,8 @@
     	longtext_col longtext,
     	longblob_col longblob); ```
     
-    
-
-insert into a1 values(127,32000,211234143,12312412555);
-select * from a1;
+``` insert into a1 values(277,32000,211234143,12312412555); ```  -> 이경우 오류! tinyint usigned는 1 부터 256까지 <br> 
+``` select * from a1; ```
 
 set @myvar1 =5;  -- set은 영구저장이 아니다. db에 영구저장되지 않음 워크벤치를 닫았다 열면 없어짐
 set @myvar2 =4.25; -- @myvar는 내가 지어준 그냥 변수이름
