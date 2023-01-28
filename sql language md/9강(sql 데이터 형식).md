@@ -36,15 +36,15 @@
 
 ### 데이터 형식 활용
 
-``` create table a1 (
-	tinyint_col tinyint unsigned not null primary key, -- unsigned (+- 범위를 0부터 시작)
-    smallint_col smallint,
-    int_col int not null,
-    bigint_col bigint,
-    char_col char(243),
-    varchar_col varchar(16222),
-    longtext_col longtext,
-    longblob_col longblob); ```
+	``` create table a1 (
+		tinyint_col tinyint unsigned not null primary key, -- unsigned (+- 범위를 0부터 시작)
+    	smallint_col smallint,
+    	int_col int not null,
+    	bigint_col bigint,
+    	char_col char(243),
+    	varchar_col varchar(16222),
+    	longtext_col longtext,
+    	longblob_col longblob); ```
     
     
 
