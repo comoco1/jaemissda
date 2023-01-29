@@ -23,54 +23,43 @@ ex) ``` delimiter $$
 
 #### if문
   * 조건식이 참일 경우 참에 들어간 구문을 실행, 거짓일 경우 거짓에 들어간 구문을 실행
-  ex) ``` if (조건식) then 
+  
+    ``` 
+    if (조건식) then 
               (참일 경우 실행할 구문) ; 
-          else
+    else
               (거짓일 경우 실행할 구문);
-          end if; ```
+    end if; ```
    
+``` if 100 = 200 then select '100과 100은 같습니다.'; end if; ```
+100 = 200 이 참일 시 , '100과 100은 같습니다.'를 조회, 아닐 경우 end if로 if구문 빠져나오기 -> 실행 시 아무 값도 조회되지 않음
+
+
+* 스토어드 프로시저 안 지역변수 지정은 set @이 아닌 declare를 사용
+	
+ex) delimter $$ create procedure ~ begin declare mynum int; 
+	
+
+##### ifelse 와 스토어드 프로시저의 활용
+	
+ 	delimiter $$ 
+	create procedure ifend();
+	begin
+		declare mynum int;
+		set mynum = 200; -- 프로시저 안 set은 @ 사용안함
+		if mynum = 200 then
+			select '200입니다.';
+		else -- 위의 if식이 거짓일 경우
+			select '200이 아닙니다.';
+		end if;
+	end $$
+	delimiter ;
+	call ifend(); 
+	
    
-          
+ #####          
 
 
-
-
-
-
-
-
-
-
-----------------------------------
-
--- if문
-drop procedure if exists ifend;
-delimiter $$ 
-create procedure ifend()
-begin
-	if 100 = 200 then
-		select '100과 100은 같습니다.';
-	end if;
-end $$
-delimiter ;
-call ifend();
-
--- ifelse문
-
-drop procedure if exists ifend1;
-delimiter $$ 
-create procedure ifend1()
-begin
-	declare mynum int;	--  set @mymun int 와 동일 (프로시저 안에서는 set 대신 declare 사용)
-    set mynum = 200; -- 프로시저 안 set은 @ 사용 안함
-	if mynum = 200 then
-		select '200입니다';
-	else
-		select '200이 아닙니다.';
-	end if;
-end $$
-delimiter ;
-call ifend1();
 
 -- ifelse 응용문
 
