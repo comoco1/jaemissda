@@ -11,7 +11,8 @@
 #### 1. 내부조인 (inner join)
   * 가장 많이 사용하는 join 방법으로, 대부분 join이라 하면 내부 조인을 일컫음
   * select (조회하려는 열이름) from (테이블1) inner join (테이블2) on (조건) ;
-  * ``` select * from member as a inner join buy as b on a.mem_id = b.mem_id where a.mem_id = 'GRL'; ```
+
+  ``` select * from member as a inner join buy as b on a.mem_id = b.mem_id where a.mem_id = 'GRL'; ```
   <br>
   
 ![1111111111111111111](https://user-images.githubusercontent.com/113004818/215309003-f1167fe6-d993-4710-bec1-14f8b5e826b4.PNG)
@@ -36,7 +37,7 @@
   * left outer join / right outer join / full outer join 존재
   * outer는 생략해도 가능 -> left join / right join / full join
 
-''' select * from member as a left join buy as b on a.mem_id = b.mem.id order by a.mem_id; ```
+  ``` select * from member as a left join buy as b on a.mem_id = b.mem.id order by a.mem_id; ```
 <br>
 ![4444444444444](https://user-images.githubusercontent.com/113004818/215309869-c25e741e-7e87-46ad-86fe-e124beaa15d9.PNG)
 
