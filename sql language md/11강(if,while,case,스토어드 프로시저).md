@@ -2,7 +2,7 @@
 
 ## 조건식 , 스토어드 프로시저
 
-#### 스토어드 프로시저
+#### 1. 스토어드 프로시저
   * mysql에서 제공하는 기능
   * 어떠한 동작을 일괄 처리하기 위해서 사용
 
@@ -21,7 +21,7 @@ ex) ``` delimiter $$
   * 프로시저를 만들땐 괄호가 붙지만 삭제시 붙지않음
   ex) create procedure ifend();  -> drop procedue ifend;
 
-#### if문
+#### 2. if문
   * 조건식이 참일 경우 참에 들어간 구문을 실행, 거짓일 경우 거짓에 들어간 구문을 실행
   
     ``` 
@@ -57,145 +57,127 @@ ex) delimter $$ create procedure ~ begin declare mynum int;
 	call ifend(); 
 	
    
- #####          
+ ##### member 테이블을 이용해 member의 연차 파악하기
+ 	delimiter $$
+	create procedure year()
+	begin
+		declare debutdate date; -- debutdate 변수 생성 (타입은 date)
+		declare curdate date; 
+		declare days int;
+	
+		select debut_date into debutdate -- debut_date 결과를 debutdate에 대입하라
+			from member where mem_id 'APN';
+		set @curdate = current_date(); -- current_date - 현재날짜
+		set @days = datediff(curdate,debutdate); -- datediff 날짜의 뺄셈을 일 단위로 표시
 
+		if (days/365) >= then
+			select concat('데뷔한지',days,'일이나 지났네요. 좀 오래 하셨군요');
+		else
+			select concat('데뷔한지',days,'일이 지났네요.조금 더 파이팅합니다.');
+		end if;
 
+	end $$
+	delimiter ;
+	call ifelse();
+	
+![9999999999999999999](https://user-images.githubusercontent.com/113004818/215314833-b1a1e6ff-6242-4aa6-a1e0-0c01663b547b.PNG) mem_id 가 'APN'인 그룹의 데뷔일차는 다음과 같다.
 
--- ifelse 응용문
+	
+#### 3. case문
+위의 if문만 보더라도 조건이 하나 밖에 존재하지 않는다. <br>
+if문에서 조건이 많을 경우 다음과 같다.
 
-delimiter $$ 
-create procedure ifend2()
-begin
-	declare debutdate date;
-    declare curdate date;
-    declare days int;
-    
-    select debut_date into debutdate -- debut-date 결과를 debutdate에 대입하라.
-		from member where mem_id = 'APN';
-        
-	set curdate = current_date(); -- current_date() -> 현재 날짜
-    set days = datediff(curdate,debutdate); -- 날짜의 뺄셈을 일 단위로 표시
-    
-    if (days/365) >= 5 then -- days는 일단위, 365로 나누면 년도가 됨
-		select concat('데뷔한지',days,'일이나 지났네요 좀 오래 되셨네용');
-	else
-		select concat('데뷔한지', days,'밖에 안지났어요. 파이팅!');
-	end if;
-end $$
-delimiter ;
-call ifend2();
+	if 조건1 then 실행구문 else if ~ then ~~~ 
 
------------------------------------
+else if를 줄이기 위해 case 구문을 사용한다.
 
--- case문 (조건이 많은때 사용)
-
-drop procedure if exists case1;
-delimiter $$ 
-create procedure case1()
-begin
-	declare credit char(1);
-    declare height smallint;
-    set height = 163;
 	case
-    when height >= 168 then
-		set credit = 'A';
-	when height >= 166 then
-		set credit = 'B';
-	when height >= 164 then
-		set credit = 'C';
-	else
-		set credit = 'D';
-	end case;
-    select credit;
-end $$
-delimiter ;
-call case1();
+		when height >= 168;
+			select '1';
+		when height >= 164 then
+			select '2';
+		else
+			select '3'
+		end case;
+		
 
-select mem_id , sum(price * amount) as "총구매액"
-	from buy
-    group by mem_id
-    order by 총구매액 desc;
 
-select m.mem_id , m.mem_name ,sum(price*amount) as 총구매액,
-		case 
-			when (sum(price*amount) >= 1500) then '최우수고객' -- 왜 sum(price*amount)에 총구매액을 쓰면 오류가 뜰까?
-			when (sum(price*amount) >= 1000) then '우수고객'
-			when (sum(price*amount) >= 1) then '일반고객'
-			else '유령고객'
-		end '회원등급'
-	from buy as b
-	right join member as m
-		on m.mem_id = b.mem_id
-	group by m.mem_id
-	order by 총구매액 desc;
 
-----------------------------------
+##### case문을 이용한 고객 등급 나누기
 
--- while 반복문
+	select mem_id , sum(price * amount) as "총구매액"
+		from buy
+	    group by mem_id
+	    order by 총구매액 desc;
 
--- 1에서 100까지
-drop procedure if exists while1
-delimiter $$
-create procedure while1()
-begin
-	declare i int;
-    declare hap int;
-    set i = 1;
-    set hap = 0;
-    
-    while(i<=100) DO
+	select m.mem_id , m.mem_name ,sum(price*amount) as 총구매액,
+			case 
+				when (sum(price*amount) >= 1500) then '최우수고객' 
+				when (sum(price*amount) >= 1000) then '우수고객'
+				when (sum(price*amount) >= 1) then '일반고객'
+				else '유령고객'
+			end '회원등급'
+		from buy as b
+		right join member as m
+			on m.mem_id = b.mem_id
+		group by m.mem_id
+		order by 총구매액 desc;
+
+![78787686](https://user-images.githubusercontent.com/113004818/215315296-cf468854-c677-4826-b6f0-053a76de596d.PNG)
+유령고객 = price 혹은 amount 가 null인 경우 -> 일반 내부조인으로는 유령고객을 join할 수 없다. 그러므로 member 테이블을 기준으로 한 외부조인을 사용
+
+
+
+#### 4. while 반복문
+	
+
+##### 1에서 100까지
+
+	drop procedure if exists while1
+	delimiter $$
+	create procedure while1()
+	begin
+		declare i int;
+	    declare hap int;
+	    set i = 1;
+	    set hap = 0;
+
+	    while(i<=100) DO
+			set hap = hap + i;
+		set i = i + 1;
+		end while;
+		
+##### 4의 배수를 제외하고 1 부터 100까지의 합 (조건 -> 합계가 100이 넘어가면 종료)
+
+	    select hap;
+	end$$
+	delimiter ;
+	call while1();
+
+	drop procedure if exists while3
+	delimiter $$
+	create procedure while3()
+	begin
+		declare i int;
+	    declare hap int;
+	    set i = 1;
+	    set hap = 0;
+	    mywhile:    -- mywhile이라는 이름을 생성 :
+	    while(i<=100) DO
+			if (i%4 = 0) then
+				set i = i + 1;
+		    iterate mywhile; -- mywhile로 돌아가라
+			end if;
 		set hap = hap + i;
-        set i = i + 1;
-	end while;
-    
-    select hap;
-end$$
-delimiter ;
-call while1();
-
-drop procedure if exists while2
-delimiter $$
-create procedure while2()
-begin
-	declare i int;
-    declare hap int;
-    set i = 1;
-    set hap = 0;
-    
-    while(i<=100) DO
-		set hap = hap + i;
-        set i = i + 1; 
-	end while;
-    
-    select hap;
-end$$
-delimiter ;
-call while2();
-
-drop procedure if exists while3
-delimiter $$
-create procedure while3()
-begin
-	declare i int;
-    declare hap int;
-    set i = 1;
-    set hap = 0;
-    mywhile:    -- mywhile이라는 이름을 생성 :
-    while(i<=100) DO
-		if (i%4 = 0) then
-			set i = i + 1;
-            iterate mywhile; -- mywhile로 돌아가라
-		end if;
-        set hap = hap + i;
-        if (hap >1000) then
-			leave mywhile; -- mywhile 밖으로 end 해라
-		end if;
-        set i = i + 1;
-	end while;
-    select hap;
-end$$
-delimiter ;
-call while3();
+		if (hap >1000) then
+				leave mywhile; -- mywhile 밖으로 end 해라
+			end if;
+		set i = i + 1;
+		end while;
+	    select hap;
+	end$$
+	delimiter ;
+	call while3();
 
 
 
