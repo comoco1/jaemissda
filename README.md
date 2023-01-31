@@ -8,3 +8,5 @@
    * [sql 소스코드](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20study)
  <br><br><br>
  ## 파이썬
+  * 파이썬 기초
+    * [혼자 끄적인 기초 파이썬 코드파일](https://github.com/comoco1/jaemissda/tree/main/py%20study)
