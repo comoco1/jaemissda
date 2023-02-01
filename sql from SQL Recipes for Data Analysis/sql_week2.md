@@ -40,4 +40,59 @@
             
  ![123123](https://user-images.githubusercontent.com/113004818/215995265-8c75b6ed-ad8c-4635-a3df-515685dfa638.PNG)
 
+
+##### 3. 문자열 분해하기
+ * 빅데이터 분석에서 가장많이 사용하는 자료형은 문자열이다.
+ * 문자열 자료형은 범용적인 자료형이므로 더 세부적으로 분해해서 사용해야 하는 경우가 많다.
+ 
+ -> 문자열을 슬래시로 분할해 계층을 추출하는 쿼리
+ 
+         select stamp,url,
+          split(regexp_extract(url,'//[^/]+([^?#]+)'),'/')[safe_ordinal(2)] as paht1,   
+          split(regexp_extract(url,'//[^/]+([^?#]+)'),'/')[safe_ordinal(3)] as paht2                
+           from sql-study-project-376507.sql_study_bigquery.access_log;               
+          -- split(나눌 값, 나누는 기준(여기선 슬래시))
+          -- regexp_extract(주소,표현기호) -> url을 표현기호'//[^/]+([^?#]+)' , 슬래시로 나눔
+          -- safe_ordinal()은 배열의 인덱스를 1부터 0부터는 safe_offset
+
+![333333333333](https://user-images.githubusercontent.com/113004818/216042449-3ea619b2-b1a6-4bc3-ba57-d99d50b6c2ff.PNG)
+
+##### 4. 날짜데이터 추출하기
+ * 문자열 뿐 아니라 날짜 데이터인 경우도 특정 년도,월 등 분할해 추출하는 경우가 많다.
+ 
+ -> 현재날짜와 타임스탬프를 추출하기
+ 
+     select current_date() as dt, current_timestamp() as stamp 
+      from sql-study-project-376507.sql_study_bigquery.access_log;
+ 
+![444444444444](https://user-images.githubusercontent.com/113004818/216044241-73d950a3-2054-4eea-a5f0-ca49ac1113c5.PNG)
+<br> 현재날짜 뿐 만 아닌 지정한 날의 날짜와 타임스탬프도 조회할 수 있다. ex) date('2000-07-11') as dt , timestamp('2000-07-11 05:30:00') as ts
+
+  -> 특정 필드 추출하기
+    * 날짜 데이터인 경우에는 년 / 월 / 일 / 시간 딱딱 정해져 있어 특정 필드의 값을 추출할 수 있다.
+   
+      select stamp 
+       ,extract(YEAR from cast(stamp as timestamp)) as year   -- 실수로 첫 쿼리 생성시 타임스탬프를 string 형식으로 저장해 cast함수를 이용해 변환
+       ,extract(MONTH from cast(stamp as timestamp)) as month
+       ,extract(DAY from cast(stamp as timestamp)) as day
+       ,extract(HOUR from cast(stamp as timestamp)) as year
+         from sql-study-project-376507.sql_study_bigquery.access_log;
+     
+![55555555555](https://user-images.githubusercontent.com/113004818/216047213-b6fdb1ed-5532-408a-a137-5a69a4184f9c.PNG)
+
+
+##### 5. 결손값 대치하기
+ * null과 사칙연산을 한 숫자형 데이터는 null값으로 표기
+ * 할인이 없는 상태에서 정가와 할인가를 db에서 빼기 실행시 null값으로 표현
+ * 이러한 경우를 막기위해 널 값일 경우 0으로 가공해 실행
+ 
+ -> colaesce 함수를 사용해 결손값 대치
+    
+    select purchase_id,amount,coupon, 
+     amount-cast(coupon as int64) as discount_amount1,
+     amount-coalesce(cast(coupon as int64),0) as discount_amount2
+       from sql-study-project-376507.sql_study_bigquery.pruchase_log_with_coupon;
+
+![77777777777](https://user-images.githubusercontent.com/113004818/216050054-c94e5b74-6a86-4229-bdd0-77e1f4152d5d.PNG)
+
         
