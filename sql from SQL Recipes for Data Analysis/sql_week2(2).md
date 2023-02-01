@@ -19,7 +19,7 @@
               from sql-study-project-376507.sql_study_bigquery.mst_user_location;
 
 ![222222222](https://user-images.githubusercontent.com/113004818/216061514-6c0e10a1-d668-4f1d-b772-a6bd892e87d0.PNG)
-
+<br><br><br>
 
 ### 2. 두개 이상의 값 비교하기
         select * 
@@ -43,7 +43,8 @@
          
 ![44444444444444](https://user-images.githubusercontent.com/113004818/216064441-42895024-9e6d-4dae-8852-a642bd1e3137.PNG)
 <br> 똑같은 방식으로 q2,q3,q4등도 비교할 수 있습니다. but 2개의 컬럼을 사용할 땐 괜찮지만 3개 이상의 컬럼을 사용하면 복잡해집니다.
-  
+ <br> <br>
+ 
    * **3개 이상의 경우 대소비교는 greatest , least 함수를 사용합니다.**
 
           select year , 
@@ -54,6 +55,8 @@
 
 ![44444444444444](https://user-images.githubusercontent.com/113004818/216069801-84e36f38-98e1-4a65-8cee-88e5aaf52fb6.PNG)
 <br> greatest를 통해 최댓값 , least를 통해 최솟값을 구할 수 있습니다.
+<br><br>
+
  * **주의 : 최댓값 최솟값도 null값이 존재하면 null값을 결과로 호출한다. null 값을 잘 치환 해줘야합니다.**
  
  null값 치환은 비교구문 뿐만 아닌 사칙연산( ex) 매출)에서 자주 나옵니다.
@@ -71,8 +74,9 @@
                   
 ![11111111111111](https://user-images.githubusercontent.com/113004818/216071462-b30699c3-cb7b-4a07-a1d5-bd408bc83dcc.PNG)
 <br> 하지만 0이 들어가 컬럼의 수는 늘어났고 평균값이 극단적으로 낮게 표시됩니다. 
+<br><br>
 
-**이러한 경우 sign 함수를 이용해 null값을 0으로 치환 하더라도 분모가 늘어나지 않게 조절합니다.**
+ **이러한 경우 sign 함수를 이용해 null값을 0으로 치환 하더라도 분모가 늘어나지 않게 조절합니다.**
 
             select year , (coalesce(q1,0)+coalesce(q2,0)+coalesce(q3,0)+coalesce(q4,0)) / 
                 (sign(coalesce(q1,0)) + sign(coalesce(q2,0)) + sign(coalesce(q3,0))+sign(coalesce(q4,0))) as average - 양수면 1 0이면 0
@@ -80,8 +84,9 @@
                       order by year;   
                       
  ![22222222222222](https://user-images.githubusercontent.com/113004818/216072429-6a00451e-0af4-46cf-97e7-d32058892e6e.PNG)
-                    
- **비율을 구할때는 coalesce 함수를 사용해 0으로 치환한다면 자칫 분모가 0이 될 수도 있습니다.   **
+     
+  
+**비율을 구할때는 coalesce 함수를 사용해 0으로 치환한다면 자칫 분모가 0이 될 수도 있습니다.**
  
            select * 
               from sql-study-project-376507.sql_study_bigquery.advertising_stats;
@@ -89,7 +94,8 @@
 ![33333333333](https://user-images.githubusercontent.com/113004818/216075183-b12d7345-d9ff-4823-83a4-441a76491e06.PNG)
 <br> 위 식을 이용해 4월2일 클릭수 / 노출수 -> 각 광고의 ctr을 구한다면, 분모가 0이 되는 경우의 수가 발생합니다.
 
-**이러한 경우 case 식을 이용해 impressions가 0인 경우를 찾는 방법으로 해결 가능합니다. **
+
+**이러한 경우 case 식을 이용해 impressions가 0인 경우를 찾는 방법으로 해결 가능합니다.**
 
           select dt, ad_id,
             case
