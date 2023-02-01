@@ -35,7 +35,7 @@
 
 -> host 단위로 집계법
 
-          select stamp , net.host(referrer) as referrer
+          select stamp , net.host(referrer) as referrer     --net.host(~)
             from access_log;
             
  ![123123](https://user-images.githubusercontent.com/113004818/215995265-8c75b6ed-ad8c-4635-a3df-515685dfa638.PNG)
