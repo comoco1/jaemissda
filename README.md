@@ -6,6 +6,8 @@
  * sql 언어 <혼자 공부하는 sql>
    * [정리본](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20md)
    * [sql 소스코드](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20study)
+ ## 이것땜에 많이 애먹었다..빅쿼리..나쁜..
+  * 빅쿼리가 인식해주기 위해서는 테이블 명 지정시 프로젝트명.데이터셋.테이블 로 해줘야함..!
  <br><br><br>
  ## 파이썬
   * 파이썬 기초
