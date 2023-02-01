@@ -4,7 +4,7 @@
  * 책 <데이터 분석을 위한 sql 레시피> (feat. google bigquery)
    * [빅데이터 시대에 요구되는 분석력(1~4강)](https://github.com/comoco1/jaemissda/blob/main/sql%20from%20SQL%20Recipes%20for%20Data%20Analysis/sql_week1.md)
    * [하나의 값 조작하기(5강)](https://github.com/comoco1/jaemissda/blob/main/sql%20from%20SQL%20Recipes%20for%20Data%20Analysis/sql_week2.md)
-   * [여러개의 값에 대한 조작(6강)](
+   * [여러개의 값에 대한 조작(6강)](https://github.com/comoco1/jaemissda/blob/main/sql%20from%20SQL%20Recipes%20for%20Data%20Analysis/sql_week2(2).md)
  * sql 언어 <혼자 공부하는 sql> (feat. mysql workbench)
    * [정리본](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20md)
    * [sql 소스코드](https://github.com/comoco1/jaemissda/tree/main/sql%20language%20study)
