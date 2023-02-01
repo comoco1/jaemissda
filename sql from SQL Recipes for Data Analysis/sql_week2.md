@@ -27,14 +27,17 @@
 
 ###### 2. url에서 요소 추출하기
 # 여기서 부터는 mysql workbench가 아닌 구글 bigquery로 진행 합니다.
-     select * from access_log;
+     select * from sql-study-project-376507.sql_study_bigquery.access_log;
+![5-2 답](https://user-images.githubusercontent.com/113004818/215992211-0c6eb81c-ae6f-4cb5-ac5e-a4201b958461.PNG)
+
   * 리퍼러는 누가 어떤 사이트를 타고 특정 사이트에 접속 했는지 알 수 있는 요소이다. 
   * 하지만 이처럼 페이지 단위로 집계시 복잡해짐으로 호스트 단위로 집계하는 것이 일반적이다.
 
 -> host 단위로 집계법
 
-          select stamp , host(referrer,'HOST') as referrer
+          select stamp , net.host(referrer) as referrer
             from access_log;
             
-  *               
+ ![123123](https://user-images.githubusercontent.com/113004818/215995265-8c75b6ed-ad8c-4635-a3df-515685dfa638.PNG)
+
         
