@@ -23,8 +23,12 @@
    ![22222222222222222](https://user-images.githubusercontent.com/113004818/215028717-b0168bd1-e65a-454e-ae10-c860934977c1.PNG)
 
   #### 4. having -> group by의 조건절
-    * ! where절 함수에는 집계함수가 xx
-    * ``` select mem_id , sum(price*amount) as 총구매액 from buy group by mem_id having 총구매액 > 1000;
+  * where절 함수에는 집계함수가 xx
+    
+            select mem_id , sum(price*amount) as 총구매액 
+                from buy 
+                    group by mem_id 
+                        having 총구매액 > 1000;
   
  
  
